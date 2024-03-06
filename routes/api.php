@@ -23,4 +23,4 @@ Route::get('/',function(){
     return response()->json(["Api E-Commerce Application"]);
 });
 
-Route::apiResource('products',ProductController::class)->only(["index","show"]);
+Route::apiResource('products',ProductController::class)->only(["index","show"])->names('api.products');

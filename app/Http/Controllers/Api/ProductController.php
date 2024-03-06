@@ -14,9 +14,12 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $filters = request()->only('category');
         $query = Product::query() ; //craete a query instance
-        $products = ProductResource::collection($query->latest()->get());
-        $categories = $query->distinct()->get('category')->pluck('category');
+        $query_category = Product::query() ; //craete a query instance
+        $products = ProductResource::collection($query->where('category',$filters)->with('reviews')->withAvg('reviews', 'rating')->latest()->get());
+        $categories = $query_category->select('category')->distinct()->get('category')->pluck('category');
+
 
 return response()->json([
     'categories' => $categories,
