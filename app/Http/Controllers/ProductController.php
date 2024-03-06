@@ -12,12 +12,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
-        $response = Http::get('http://127.0.0.1:8001/api/products'); // Increase timeout to 60 seconds
-    
+        $response = Http::get('http://127.0.0.1:8001/api/products?' . http_build_query(request()->query()));
         $categories = $response['categories'];
         $products = $response['products'];
-        return view('components.product', compact('categories', 'products'));
+        return view('Product.product', compact('categories', 'products'));
     }
 
     /**

@@ -1,8 +1,27 @@
 <x-layout>
     <!-- List all the category -->
     <div class="flex justify-evenly items-center pt-2 text-sm text-gray-600 hover:cursor-pointer">
+        @if(! request()->has('category') )
+            <a href="{{ route('products.index') }}"
+                class="hover:underline text-blue-500 hover:text-gray-800">All</a>
+        @else
+            <a href="{{ route('products.index') }}"
+                class="hover:underline hover:text-gray-800">All</a>
+
+
+        @endif
         @foreach($categories as $category)
-            <a href="?category={{ $category }}" class="hover:underline hover:text-gray-800">{{ $category }}</a>
+
+            @if(
+                request()->has('category') && request()->query('category') === $category
+                )
+                <a href="?category={{ $category }}"
+                    class="hover:underline  text-blue-500 hover:text-gray-800">{{ ucfirst($category) }}</a>
+            @else
+                <a href="?category={{ $category }}"
+                    class="hover:underline hover:text-gray-800">{{ ucfirst($category) }}</a>
+
+            @endif
         @endforeach
     </div>
 
@@ -12,7 +31,7 @@
             All Products
         </div>
         <div class="grid grid-cols-3">
-            @foreach($products as $product)
+            @forelse($products as $product)
 
                 <div
                     class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
@@ -21,7 +40,8 @@
                             src="{{ $product['image'] }}"
                             alt="{{ $product['title'] }}" />
                         @if(
-                            date('Y-m-d', strtotime($product['created_date'])) >= date('Y-m-d', strtotime('-1 day')) )
+                            date('Y-m-d', strtotime($product['created_date'])) >= date('Y-m-d', strtotime('-30 days'))
+                            )
                             <span
                                 class="absolute -top-5 -left-5 m-2 rounded-sm shadow-lg bg-red-500 px-2 text-center text-sm font-medium text-white">
                                 New
@@ -74,8 +94,9 @@
                             Add to cart</a>
                     </div>
                 </div>
-
-            @endforeach
+            @empty
+                <div class="text-center text-gray-500 col-span-3">No Product Found</div>
+            @endforelse
 
         </div>
     </div>

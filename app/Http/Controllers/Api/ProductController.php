@@ -14,11 +14,29 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $filters = request()->only('category');
+        $filters = request()->only('category','search'); //get category and search from request
         $query = Product::query() ; //craete a query instance
-        $query_category = Product::query() ; //craete a query instance
-        $products = ProductResource::collection($query->where('category',$filters)->with('reviews')->withAvg('reviews', 'rating')->latest()->get());
-        $categories = $query_category->select('category')->distinct()->get('category')->pluck('category');
+        $query_category = Product::query() ; //craete a query instance for to get unique categories available
+
+        //check the category available in request if yes than filter data acoording to category
+        if (isset($filters['category'])) {
+            $query->where('category', 'LIKE', '%' . $filters['category'] . '%');
+        }
+        
+        //check the search available in request if available than filter the data according to search
+        if (isset($filters['search'])) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('title', 'LIKE', '%' . $filters['search'] . '%') //if title match
+                  ->orWhere('description', 'LIKE', '%' . $filters['search'] . '%')  //if description match
+                  ->orWhere('category', 'LIKE', '%' . $filters['search'] . '%');// if category match
+            });
+        }
+
+        $products = ProductResource::collection(
+            $query->with('reviews')->withAvg('reviews', 'rating')->latest()->get()    
+        );
+        
+            $categories = $query_category->select('category')->distinct()->get('category')->pluck('category');
 
 
 return response()->json([

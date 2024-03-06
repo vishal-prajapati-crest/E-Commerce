@@ -15,7 +15,7 @@
         <a class="ml-20 text-2xl " href="/">E-Commerce</a>
         <div class="min-w-96 ">
 
-            <form class="max-w-lg mx-auto ">
+            <form method="get" action="{{ route('products.index') }}" class="max-w-lg mx-auto ">
                 <label for="default-search"
                     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
@@ -26,9 +26,10 @@
                                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input type="search" id="default-search"
+                    <input type="search" id="default-search" name="search"
+                        value="{{ request('search') }}"
                         class="h-8 block w-full p-4 pr-20 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-1 focus:outline-slate-400 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-0"
-                        placeholder="Search Sony, Samsung..." required />
+                        placeholder="Search Sony, Samsung..." />
                     <button type="submit"
                         class="absolute inset-y-1 end-2 text-white bg-blue-500 hover:bg-blue-600 focus:ring-1 focus:outline-slate-400 font-medium rounded-lg text-sm px-4 py-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
