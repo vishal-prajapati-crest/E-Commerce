@@ -35,7 +35,8 @@
 
                 <div
                     class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-                    <a class="relative mx-3 mt-3 flex h-60  rounded-xl" href="#">
+                    <a class="relative mx-3 mt-3 flex h-60  rounded-xl"
+                        href="{{ route('products.show',$product['id']) }}">
                         <img class="object-cover mx-auto my-auto max-h-56"
                             src="{{ $product['image'] }}"
                             alt="{{ $product['title'] }}" />
@@ -49,7 +50,8 @@
                         @endif
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                        <a href="#">
+                        <a
+                            href="{{ route('products.show',$product['id']) }}">
                             <h5 class="text-xl tracking-tight text-slate-900">
                                 {{ $product['title'] }}</h5>
                         </a>
@@ -81,7 +83,7 @@
                                 @endfor
 
                                 <span
-                                    class="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{{ $product['average_rating'] ? number_format($product['average_rating'], 2) : 'No rating' }}</span>
+                                    class="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{{ $product['average_rating'] ? number_format($product['average_rating'], 1) : 'No rating' }}</span>
                             </div>
                         </div>
                         <a href="#"

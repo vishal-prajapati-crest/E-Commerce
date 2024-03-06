@@ -33,7 +33,7 @@ class ProductController extends Controller
         }
 
         $products = ProductResource::collection(
-            $query->with('reviews')->withAvg('reviews', 'rating')->latest()->get()    
+            $query->withAvg('reviews', 'rating')->latest()->get()    
         );
         
             $categories = $query_category->select('category')->distinct()->get('category')->pluck('category');
@@ -54,6 +54,11 @@ return response()->json([
      */
     public function show(Product $product)
     {
+        $product->load('reviews'); //load reviews to product
+        $averageRating = $product->reviews()->avg('rating'); //get average rating
+        $ratingCount = $product->reviews()->count('rating'); //get rating count
+        $product->reviews_avg_rating = $averageRating;
+        $product->rating_count = $ratingCount;
         return ProductResource::make($product);
     }
 

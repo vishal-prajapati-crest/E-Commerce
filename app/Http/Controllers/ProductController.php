@@ -39,7 +39,10 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $response = Http::get('http://127.0.0.1:8001/api/products/'. $id);
+        $data = json_decode($response);
+        $data = $data->data;
+        return view('Product.show', ['data' => $data]);
     }
 
     /**
