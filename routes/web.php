@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +22,10 @@ Route::get('/', function () {
 });
 
 Route::resource('products', ProductController::class)->only(['index','show']);
+Route::resource('create', SignupController::class)->only(['index','store']);
+
+Route::get('login', fn () => to_route('auth.create'))->name('login');
+Route::resource('auth',AuthController::class)->only(['create', 'store']);
+
+Route::get('/user-info',  [UserController::class, 'getUserInfo']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

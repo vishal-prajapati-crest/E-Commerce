@@ -72,14 +72,14 @@ class AuthController extends Controller
 
         //send response in Json
         return response()->json([
-            'token' => $token
+            'token' => $token,
+            'user' => $user
         ]);
 
     }
 
     //logout method
     public function logout(Request $request){
-
 
         //delete token to logout
         $request->user()->tokens()->delete();

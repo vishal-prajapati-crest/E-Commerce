@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/',function(){
     return response()->json(["Api E-Commerce Application"]);
 });
+
+Route::post('/auth/login', [AuthController::class, 'login'])->name('api.auth.login');
+Route::post('/auth/signup', [AuthController::class, 'signup'])->name('api.auth.signup');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::apiResource('products',ProductController::class)->only(["index","show"])->names('api.products');

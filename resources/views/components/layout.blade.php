@@ -47,12 +47,20 @@
                 </a>
             </div>
             <div>
-                <a href="#">
-                    Login
-                </a>
+                @if(session('user'))
+                    <div>{{ session('user')['name'] }}</div>
+                    <a href="{{ route('auth.logout') }}">Logout</a>
+
+                @else
+                    <a href="{{ route('login') }}">
+                        Login
+                    </a>
+                @endif
+
             </div>
         </div>
     </nav>
+
     <section class="bg-white mx-10 px-10">
         {{ $slot }}
     </section>
