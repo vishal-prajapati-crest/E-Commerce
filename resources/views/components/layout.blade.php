@@ -38,7 +38,7 @@
         </div>
         <div class="flex gap-5 mr-20">
             <div>
-                <a href="#">
+                <a href="{{ route('cart.show') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,6 +60,36 @@
             </div>
         </div>
     </nav>
+    @if(session('success'))
+        <div id="alert-box" role="alert"
+            class="my-8 rounded-md border-l-4 border-green-400 bg-green-200 p-4 text-green-700 opacity-75 relative">
+            <button type="button" onclick="document.getElementById('alert-box').style.display='none';"
+                class="absolute top-2 right-2 text-slate-600 font-medium text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+
+            </button>
+            <p class="font-bold">Success!</p>
+            <p>{{ session('success') }}</p>
+        </div>
+    @endif
+    @if(session('error'))
+        <div id="alert-box" role="alert"
+            class="my-8 rounded-md border-l-4 border-red-400 bg-red-200 p-4 text-red-700 opacity-75 relative">
+            <button type="button" onclick="document.getElementById('alert-box').style.display='none';"
+                class="absolute top-2 right-2 text-slate-600 font-medium text-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+
+            </button>
+            <p class="font-bold">Error!</p>
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
 
     <section class="bg-white mx-10 px-10">
         {{ $slot }}
@@ -96,6 +126,11 @@
     </footer>
 
 
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/holder.min.js"></script>
+    @yield('footer-scripts')
 </body>
 
 </html>
