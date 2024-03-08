@@ -36,8 +36,23 @@
             </form>
 
         </div>
-        <div class="flex gap-5 mr-20">
-            <div>
+        <div class="flex gap-5 items-center mr-20">
+            <div class="relative">
+                @if(
+                    session()->has('cart') && count(session('cart')) > 0
+                    )
+                    @php
+                        $totalQty =0
+                    @endphp
+                    @foreach(session('cart') as $productId => $product)
+                        @php
+                            $totalQty += $product['quantity'];
+                        @endphp
+                    @endforeach
+
+                    <span
+                        class="absolute -top-1 -left-2 w-4 h-4 text-xs bg-red-600 text-center rounded-full">{{ $totalQty }}</span>
+                @endif
                 <a href="{{ route('cart.show') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -46,7 +61,7 @@
                     </svg>
                 </a>
             </div>
-            <div>
+            <div class="flex gap-2">
                 @if(session('user'))
                     <div>{{ session('user')['name'] }}</div>
                     <a href="{{ route('auth.logout') }}">Logout</a>
