@@ -57,18 +57,27 @@ class AuthController extends Controller
         // // Remove user data from the session
         // $request->session()->forget('user');
         // $request->session()->forget('token');
-        Auth::logout();
+        // Auth::logout();
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . Session::get('token'),
-        ])->get('http://localhost:8001/api/logout');
         
-        //destroy the session
+        
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . session('token'),
+        ])->post('http://localhost:8001/api/logout');
+
+        if($response->successful()){
+            //destroy the session
         request()->session()->invalidate();
 
 
         //regenrate the seesion token for csrf
         request()->session()->regenerateToken();
+        }else{
+            throw ValidationException::withMessages([
+                'error' => [$response['error']]
+            ]);
+        }
+        
 
         // return redirect('/');
     
