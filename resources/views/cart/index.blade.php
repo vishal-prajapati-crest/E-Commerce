@@ -39,7 +39,8 @@
                                         alt="{{ $product['title'] }}" />
                                 </td>
                                 <td>
-                                    {{ $product['title'] }}
+                                    <a
+                                        href="{{ route('products.show', $productId) }}">{{ $product['title'] }}</a>
                                 </td>
                                 <td class="text-center flex items-center justify-center my-7 gap-3">
                                     <form action="{{ route('cart.update') }}" method="POST">
@@ -115,6 +116,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <a href="#">Checkout</a>
+                </div>
             </div>
 
 

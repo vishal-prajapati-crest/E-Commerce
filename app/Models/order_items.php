@@ -9,4 +9,9 @@ class order_items extends Model
 {
     use HasFactory;
     protected $table = 'order_items';
+
+    public function order(){
+
+        return $this->belongsTo(User::class);
+    }
 }
