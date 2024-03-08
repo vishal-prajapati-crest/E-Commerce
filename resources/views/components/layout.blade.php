@@ -62,7 +62,7 @@
                 </a>
             </div>
             <div class="flex gap-2">
-                @if(session('user'))
+                @if(session('token'))
                     <div>{{ session('user')['name'] }}</div>
                     <a href="{{ route('auth.logout') }}">Logout</a>
 

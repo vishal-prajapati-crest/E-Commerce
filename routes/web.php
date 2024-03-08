@@ -21,7 +21,7 @@ Route::get('/', function () {
     return to_route('products.index');
 });
 
-Route::resource('products', ProductController::class)->only(['index','show']);
+Route::resource('products', ProductController::class)->middleware('verifyToken')->only(['index','show']);
 Route::resource('create', SignupController::class)->only(['index','store']);
 
 Route::get('login', fn () => to_route('auth.create'))->name('login');
