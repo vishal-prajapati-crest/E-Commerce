@@ -68,7 +68,7 @@ class AuthController extends Controller
         }
 
         //Now user is geniun so genrate a token for that
-        $token = $user->createToken('api-token')->plainTextToken; //using traits HasApiTokens which use in User model will create token and corvert it into plainText
+        $token = $user->createToken('api-token',['*'],now()->addMinutes(1440))->plainTextToken; //using traits HasApiTokens which use in User model will create token and corvert it into plainText
 
         //send response in Json
         return response()->json([

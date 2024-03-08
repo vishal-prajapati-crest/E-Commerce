@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
@@ -25,6 +26,7 @@ class verifyToken
 
             if ($response && is_array($response->json())) {
                 $message = $response->json()['message'];
+
     
                 if ($message === 'Token is valid.') {
                     return $next($request);
