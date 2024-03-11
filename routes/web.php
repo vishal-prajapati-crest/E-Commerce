@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\UserController;
@@ -34,3 +35,5 @@ Route::post('/cart/add', 'App\Http\Controllers\CartController@add')->name('cart.
 Route::get('/cart', 'App\Http\Controllers\CartController@show')->name('cart.show');
 Route::post('/cart/remove', 'App\Http\Controllers\CartController@remove')->name('cart.remove');
 Route::post('/cart/update', 'App\Http\Controllers\CartController@update')->name('cart.update');
+
+Route::resource('checkout', CheckoutController::class)->middleware('verifyToken')->only(['create','store']);
