@@ -34,4 +34,4 @@ Route::apiResource('products',ProductController::class)->only(["index","show"])-
 
 Route::get('/token/check-expiry', [TokenController::class, 'checkExpiry'])->middleware('auth:sanctum');
 
-Route::apiResource('/order',OrderController::class)->middleware('auth:sanctum')->only(['store'])->names('api.order');
+Route::apiResource('/order',OrderController::class)->middleware('auth:sanctum')->only(['index','store'])->names('api.order');

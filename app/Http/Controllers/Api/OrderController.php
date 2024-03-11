@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\order;
 use App\Models\order_items;
 use App\Models\User;
@@ -13,9 +14,29 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try{
+            $user = $request->user();
+            $orders = $user->orders()->with('orderItems.product')->latest()->get();
+            if($orders->count()){
+                return response()->json([
+                    'data'=> $orders,
+                    'message' => 'Order founded successfully!!'
+                ]);
+            }else{
+                return response()->json([
+                    'message'=> 'Order Not Found'
+                ],404);
+            }
+            
+        }catch(\Exception $e){
+            // If an error occurs, return an error response
+            return response()->json([
+                'message' => 'Failed to fetch orders',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -54,7 +75,7 @@ class OrderController extends Controller
             
             return response()->json(
             [
-                'message' => "Order Placed Successfully",
+                'message' => "Order Placed Successfully! your order id is ". $order['id'],
                 'data' => $order
             ], 
             201

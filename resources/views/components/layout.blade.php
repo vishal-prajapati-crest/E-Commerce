@@ -64,6 +64,7 @@
             <div class="flex gap-2">
                 @if(session('token'))
                     <div>{{ session('user')['name'] }}</div>
+                    <div><a href="{{ route('myOrder') }}">My-orders</a></div>
                     <a href="{{ route('auth.logout') }}">Logout</a>
 
                 @else
@@ -89,6 +90,7 @@
             <p class="font-bold">Success!</p>
             <p>{{ session('success') }}</p>
         </div>
+
     @endif
     @if(session('error'))
         <div id="alert-box" role="alert"

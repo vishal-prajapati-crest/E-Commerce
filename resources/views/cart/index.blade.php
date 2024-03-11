@@ -116,8 +116,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <div>
-                    <a href="#">Checkout</a>
+                <div class="flex justify-end mr-20">
+                    <a class="bg-primary-500 text-white p-2 rounded-md hover:bg-primary-600 mb-6"
+                        href="{{ route('checkout.create') }}">Checkout</a>
                 </div>
             </div>
 

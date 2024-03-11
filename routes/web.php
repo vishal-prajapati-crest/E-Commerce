@@ -37,3 +37,5 @@ Route::post('/cart/remove', 'App\Http\Controllers\CartController@remove')->name(
 Route::post('/cart/update', 'App\Http\Controllers\CartController@update')->name('cart.update');
 
 Route::resource('checkout', CheckoutController::class)->middleware('verifyToken')->only(['create','store']);
+
+Route::get('/my-order', [UserController::class, 'myOrder'])->name('myOrder');
