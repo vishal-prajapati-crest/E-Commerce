@@ -63,6 +63,7 @@ class AuthController extends Controller
         
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . session('token'),
+            'Accept' => 'application/json'
         ])->post('http://localhost:8001/api/logout');
 
         if($response->successful()){

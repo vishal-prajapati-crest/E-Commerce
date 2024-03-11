@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('total_amount');
             $table->boolean('payment_status');
             $table->string('transaction_id');
-            $table->string('Address');
+            $table->string('address');
             $table->string('state');
             $table->string('city');
             $table->string('country');
