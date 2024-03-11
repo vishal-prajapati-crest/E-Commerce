@@ -77,36 +77,66 @@
         </div>
     </nav>
     @if(session('success'))
-        <div id="alert-box" role="alert"
-            class="my-8 rounded-md border-l-4 border-green-400 bg-green-200 p-4 text-green-700 opacity-75 relative">
-            <button type="button" onclick="document.getElementById('alert-box').style.display='none';"
-                class="absolute top-2 right-2 text-slate-600 font-medium text-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-
-            </button>
-            <p class="font-bold">Success!</p>
-            <p>{{ session('success') }}</p>
+        <div id="alert-box-success" role="alert" class="fixed bottom-0 left-0 my-8 w-full md:w-1/3 mx-auto z-50">
+            <div class="relative">
+                <div class="bg-green-500 text-white px-4 py-2 flex items-center justify-between">
+                    <p class="font-bold">Success!</p>
+                    <button type="button" onclick="hideAlert('alert-box-success');"
+                        class="text-slate-600 font-medium text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-green-200 p-4">
+                    <p>{{ session('success') }}</p>
+                </div>
+                <div class="bg-green-500 h-1"></div>
+            </div>
         </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('alert-box-success').style.display = 'none';
+            }, 5000);
 
+        </script>
     @endif
+
     @if(session('error'))
-        <div id="alert-box" role="alert"
-            class="my-8 rounded-md border-l-4 border-red-400 bg-red-200 p-4 text-red-700 opacity-75 relative">
-            <button type="button" onclick="document.getElementById('alert-box').style.display='none';"
-                class="absolute top-2 right-2 text-slate-600 font-medium text-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-
-            </button>
-            <p class="font-bold">Error!</p>
-            <p>{{ session('error') }}</p>
+        <div id="alert-box-error" role="alert" class="fixed bottom-0 left-0 my-8 w-full md:w-1/3 mx-auto z-50">
+            <div class="relative">
+                <div class="bg-red-500 text-white px-4 py-2 flex items-center justify-between">
+                    <p class="font-bold">Error!</p>
+                    <button type="button" onclick="hideAlert('alert-box-error');"
+                        class="text-slate-600 font-medium text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-red-200 p-4">
+                    <p>{{ session('error') }}</p>
+                </div>
+                <div class="bg-red-500 h-1"></div>
+            </div>
         </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('alert-box-error').style.display = 'none';
+            }, 5000);
+
+        </script>
     @endif
+
+    <script>
+        function hideAlert(alertId) {
+            document.getElementById(alertId).style.display = 'none';
+        }
+
+    </script>
+
 
     <section class="bg-white mx-10 px-10">
         {{ $slot }}
