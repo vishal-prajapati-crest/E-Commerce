@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
@@ -35,3 +36,9 @@ Route::apiResource('products',ProductController::class)->only(["index","show"])-
 Route::get('/token/check-expiry', [TokenController::class, 'checkExpiry'])->middleware('auth:sanctum');
 
 Route::apiResource('/order',OrderController::class)->middleware('auth:sanctum')->only(['index','store'])->names('api.order');
+
+Route::controller(AdminController::class)->prefix('admin')->name('api.admin.')->group(function () {
+    Route::post('/register', 'register')->name('register');
+    Route::post('/login','adminLogin')->name('login');
+    Route::post('/logout','adminLogout')->middleware('auth:sanctum')->name('logout');
+});
