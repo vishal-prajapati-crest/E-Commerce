@@ -5,6 +5,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\UserController;
+use App\Livewire\Admin;
+use App\Livewire\AdminDashboard;
+use App\Livewire\AdminLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +42,9 @@ Route::post('/cart/update', 'App\Http\Controllers\CartController@update')->name(
 Route::resource('checkout', CheckoutController::class)->middleware('verifyToken')->only(['create','store']);
 
 Route::get('/my-order', [UserController::class, 'myOrder'])->name('myOrder');
+
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/', AdminLogin::class)->name('home');
+    Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+});
