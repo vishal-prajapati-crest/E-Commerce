@@ -12,6 +12,7 @@ class Admin extends Model
     use HasFactory;
     use HasApiTokens;
 
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
