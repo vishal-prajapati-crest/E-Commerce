@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
+use App\Mail\OrderPlaced;
 use App\Models\order;
 use App\Models\order_items;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -71,8 +73,12 @@ class OrderController extends Controller
                 ]); 
             }
 
-            $order->load('orderItems'); //load the order items
-            
+            $order->load('orderItems.product'); //load the order items
+
+            //send order placed mail
+            Mail::to($request->user())->send(new OrderPlaced($order));
+
+
             return response()->json(
             [
                 'message' => "Order Placed Successfully! your order id is ". $order['id'],
