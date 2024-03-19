@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('category');
             $table->string('image');
+            $table->bigInteger('seller_id')->unsigned();
+            $table->foreign('seller_id')->references('id')->on('admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

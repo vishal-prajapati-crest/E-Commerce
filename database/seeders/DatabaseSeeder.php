@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($products as $product) {
             DB::table('products')->insert([
+                'seller_id' => $product['seller_id'],
                 'title' => $product['title'],
                 'price' => $product['price'],
                 'description' => $product['description'],
