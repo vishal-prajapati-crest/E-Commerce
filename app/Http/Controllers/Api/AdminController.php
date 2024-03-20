@@ -179,10 +179,14 @@ class AdminController extends Controller
             $product = $seller->products()->where('id',$id)->first();
 
             if($product){
-                $product->delete();
-                return response()->json([
-                    'message' => 'Product deleted successfully',
-                ], 200);
+                $deleted = $product->delete();
+                if($deleted){
+                    return response()->json([
+                        'message' => 'Product deleted successfully',
+                    ], 200);
+                }else{
+                    throw new Exception("Unable to delete product", 500);                
+                }
             }else{
                 return response()->json([
                     'success' => false,
