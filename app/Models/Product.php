@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'price', 'description', 'category', 'image'];
     public function reviews(){
 
         return $this->hasMany(Review::class);

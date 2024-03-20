@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -95,5 +96,51 @@ class AdminController extends Controller
             'message' => 'Logged out successfully'
         ]);
 
+    }
+
+    public function addProduct(Request $request){
+        try{
+            $admin = $request->user();
+
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'price' => 'required|numeric',
+                'description' => 'required|min:10',
+                'category' => 'required|string',
+                'image' => 'required|string'
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' =>false,
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors()
+                ], 422);
+            }
+
+            // If validation passes, continue with your logic
+             $data = $validator->validated();
+
+            $product = $admin->products()->create($data);
+
+            if($product){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product added successfully',
+                    'data' => $product
+                ],201);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not added',
+                    'error' => 'Product does not created'
+                ], 500);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                'message' => 'Failed to add product',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

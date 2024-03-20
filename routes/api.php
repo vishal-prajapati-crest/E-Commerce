@@ -41,4 +41,7 @@ Route::controller(AdminController::class)->prefix('admin')->name('api.admin.')->
     Route::post('/register', 'register')->name('register');
     Route::post('/login','adminLogin')->name('login');
     Route::post('/logout','adminLogout')->middleware('auth:sanctum')->name('logout');
+
+    Route::middleware('auth:sanctum')->post('/add-product', 'addProduct')->name('add-product');
+
 });
