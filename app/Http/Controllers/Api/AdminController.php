@@ -138,9 +138,65 @@ class AdminController extends Controller
             }
         }catch(Exception $e){
             return response()->json([
+                'success' => false,
                 'message' => 'Failed to add product',
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getAllProducts(Request $request){
+        try{
+            $admin = $request->user();
+            $product = $admin->products()->latest()->get();
+
+            if($product){
+                return response()->json([
+                    'message' => 'Product fetch successfully',
+                    'data' => $product
+                ],200);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to fetch product',
+                    'error' => 'unable to get product'
+                ], 500);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch product',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function deleteProduct(Request $request,int $id){
+        try{
+
+            $seller = $request->user();
+
+            $product = $seller->products()->where('id',$id)->first();
+
+            if($product){
+                $product->delete();
+                return response()->json([
+                    'message' => 'Product deleted successfully',
+                ], 200);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found'
+                ], 404);
+            }
+        }catch(Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete product',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+        
+        
     }
 }
