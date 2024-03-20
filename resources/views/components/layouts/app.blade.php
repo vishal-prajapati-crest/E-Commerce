@@ -69,6 +69,7 @@
 
         </script>
     @endif
+
     <article>
         {{ $slot }}
     </article>
