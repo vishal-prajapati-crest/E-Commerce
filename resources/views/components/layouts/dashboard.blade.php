@@ -71,7 +71,26 @@
     @endif
 
     <article>
-        {{ $slot }}
+        <div>
+            @if(session('token') && session('admin'))
+                <div class="flex h-full border gap-0">
+                    <!-- <section class=" min-h-screen md:min-w-56 bg-primary-500 p-4">left</section> -->
+                    <section class=" min-h-screen md:min-w-56 bg-white py-4 rounded-r-md ">
+                        <livewire:admin-dashboard.sidebar />
+                    </section>
+
+                    <section class="bg-primary-100 bg-opacity-40 w-full py-6 px-4">
+                        {{ $slot }}
+                    </section>
+                </div>
+            @else
+                {{ session()->flash('error','Not Authenticated') }}
+                <script>
+                    window.location.href = '/admin/login'
+
+                </script>
+            @endif
+        </div>
     </article>
     <footer>
         <livewire:footer />

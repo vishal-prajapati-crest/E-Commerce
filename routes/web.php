@@ -7,6 +7,8 @@ use App\Http\Controllers\SignupController;
 use App\Http\Controllers\UserController;
 use App\Livewire\Admin;
 use App\Livewire\AdminDashboard;
+use App\Livewire\AdminDashboard\AddNewProduct;
+use App\Livewire\AdminDashboard\AllProduct;
 use App\Livewire\AdminLogin;
 use App\Livewire\AdminRegister;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/register', AdminRegister::class)->name('Register');
     Route::get('/login', AdminLogin::class)->name('login');
+
+    Route::get('/add-product', AddNewProduct::class)->name('add-product');
+    Route::get('/all-product', AllProduct::class)->name('all-product');
 });

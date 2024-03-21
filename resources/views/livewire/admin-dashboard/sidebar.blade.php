@@ -1,7 +1,10 @@
 <div class="flex flex-col">
     <div class="flex">
-        <div class="bg-primary-500 rounded-r-md min-w-1"></div>
-        <div class=" px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4">
+        <div
+            class="{{ $selectedItem === 'addNewProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
+        </div>
+        <div wire:click.prevent="addProduct"
+            class="{{ $selectedItem === 'addNewProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -10,13 +13,15 @@
                 </svg>
 
             </div>
-            <a href="#" wire:navigate>Add New Product</a>
+            <div>Add New Product</div>
         </div>
     </div>
     <div class="flex">
-        <div class="bg-transparent rounded-r-md min-w-1 "></div>
         <div
-            class=" px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer">
+            class="{{ $selectedItem === 'allProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
+        </div>
+        <div wire:click.prevent="allProduct"
+            class="{{ $selectedItem === 'allProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -27,7 +32,7 @@
 
 
             </div>
-            <a href="#" wire:navigate>Products</a>
+            <div>Products</div>
         </div>
     </div>
 </div>
