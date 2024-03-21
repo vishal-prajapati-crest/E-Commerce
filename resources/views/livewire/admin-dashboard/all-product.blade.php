@@ -1,8 +1,25 @@
 <div class="overflow-x-auto">
-    @if($loading)
-        <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <div class="spinner"></div> <!-- Replace 'spinner' with your actual spinner component or loading message -->
+
+    <div wire:loading
+        class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-60">
+        <div class="spinner">
+            <div class="min-h-6">
+                <div class="">
+                    <div class="container">
+                        <div class="loadingspinner">
+                            <div id="square1"></div>
+                            <div id="square2"></div>
+                            <div id="square3"></div>
+                            <div id="square4"></div>
+                            <div id="square5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    @if(session('error') || session('success'))
+        <livewire:flash-message />
     @endif
     @if($products && !$loading)
         <table class="min-w-full divide-y divide-gray-200">

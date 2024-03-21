@@ -4,7 +4,7 @@
         @error('error')
             <div class="mt-1 px-2 text-sm text-red-500">{{ $message }}</div>
         @enderror
-        @if(session('success'))
+        @if(session('success') || session('error'))
             <livewire:flash-message />
         @endif
         <div>

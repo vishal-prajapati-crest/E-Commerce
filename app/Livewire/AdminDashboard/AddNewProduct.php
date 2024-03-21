@@ -5,8 +5,10 @@ namespace App\Livewire\AdminDashboard;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+
 
 class AddNewProduct extends Component
 {

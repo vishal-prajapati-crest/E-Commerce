@@ -37,6 +37,11 @@ article {
     position: relative;
 }
 
+.loadingspinner-large {
+    --square: 20px;
+    --offset: 30px;
+}
+
 .loadingspinner div {
     display: inline-block;
     background: #3b82f6;
