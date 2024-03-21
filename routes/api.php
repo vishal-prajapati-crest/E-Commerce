@@ -41,4 +41,11 @@ Route::controller(AdminController::class)->prefix('admin')->name('api.admin.')->
     Route::post('/register', 'register')->name('register');
     Route::post('/login','adminLogin')->name('login');
     Route::post('/logout','adminLogout')->middleware('auth:sanctum')->name('logout');
+
+    Route::middleware('auth:sanctum')->group(function(){
+        Route::post('/add-product', 'addProduct')->name('add-product');
+        Route::get('/products', 'getAllProducts')->name('all-products');
+        Route::delete('/product/{id}', 'deleteProduct')->name('delete-product');
+    });
+
 });
