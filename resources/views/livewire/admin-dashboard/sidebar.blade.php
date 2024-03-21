@@ -1,5 +1,5 @@
 <div class="flex flex-col">
-    <div wire:loading.delay.longer
+    <div wire:loading.delay.longest
         class="fixed top-0 left-0 w-full ml-56 mt-16 h-full flex items-center justify-center bg-primary-100 bg-opacity-60">
         <div class="spinner">
             <div class="min-h-6">
