@@ -37,7 +37,7 @@ class AdminLogin extends Component
             Session::put('user', $user);
             Session::put('admin', $admin);
             session()->flash('success', $message);
-            return $this->redirect('/admin/dashboard',  navigate: true);
+            return $this->redirect(route('admin.add-product'),  navigate: true);
             
         }else{
             throw ValidationException::withMessages([
