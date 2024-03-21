@@ -22,12 +22,10 @@ class Sidebar extends Component
 
     public function allProduct(){
         $this->selectedItem = 'allProduct';
-        $this->redirect(route('admin.all-product'), navigate:true);
     }
     
     public function addProduct(){
         $this->selectedItem = 'addNewProduct';
-        $this->redirect(route('admin.add-product'), navigate:true);
     }
 
     public function render()

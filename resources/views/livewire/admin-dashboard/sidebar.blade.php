@@ -21,7 +21,7 @@
         <div
             class="{{ $selectedItem === 'addNewProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
         </div>
-        <div wire:click.prevent="addProduct"
+        <a wire:click.prevent="addProduct" href="{{ route('admin.add-product') }}" wire:navigate.hover
             class="{{ $selectedItem === 'addNewProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -32,13 +32,13 @@
 
             </div>
             <div>Add New Product</div>
-        </div>
+        </a>
     </div>
     <div class="flex">
         <div
             class="{{ $selectedItem === 'allProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
         </div>
-        <div wire:click.prevent="allProduct"
+        <a wire:click.prevent="allProduct" href="{{ route('admin.all-product') }}" wire:navigate.hover
             class="{{ $selectedItem === 'allProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -51,6 +51,6 @@
 
             </div>
             <div>Products</div>
-        </div>
+        </a>
     </div>
 </div>
