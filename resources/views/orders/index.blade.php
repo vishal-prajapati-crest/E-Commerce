@@ -12,10 +12,14 @@
             </thead>
             <tbody>
                 @foreach($data as $data)
+                    @php
+                        $prtitle = isset($data['order_items'][0]['product']['title']) ?
+                        $data['order_items'][0]['product']['title'] : '';
+                    @endphp
                     <tr>
                         <td class="text-center">{{ $data['id'] }}</td>
                         <td>
-                            {{ substr($data['order_items'][0]['product']['title'], 0, 80)."..." }}
+                            {{ substr($prtitle, 0, 80)."..." }}
                         </td>
                         <td class="text-center">
                             {{ number_format($data['total_amount'], 2) }}
