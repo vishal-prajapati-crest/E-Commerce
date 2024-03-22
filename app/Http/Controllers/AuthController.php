@@ -34,6 +34,8 @@ class AuthController extends Controller
 
         
         if ($response->successful()) {
+            session()->invalidate();
+            session()->regenerate();
             $token = $response['token']; // Assuming the token key in the response is 'token'
             $user = $response['user']; // Assuming the user key in the response is 'user'
             // Store the token in the session
