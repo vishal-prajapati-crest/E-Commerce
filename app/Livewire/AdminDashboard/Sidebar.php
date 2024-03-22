@@ -16,18 +16,18 @@ class Sidebar extends Component
             $this->selectedItem = 'allProduct';
         }elseif($currentRoute==='admin.add-product'){
             $this->selectedItem = 'addNewProduct';
+        }else{
+            $this->selectedItem = $currentRoute;
         }
     }
 
 
     public function allProduct(){
         $this->selectedItem = 'allProduct';
-        $this->redirect(route('admin.all-product'), navigate:true);
     }
     
     public function addProduct(){
         $this->selectedItem = 'addNewProduct';
-        $this->redirect(route('admin.add-product'), navigate:true);
     }
 
     public function render()

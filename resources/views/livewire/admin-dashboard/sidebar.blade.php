@@ -21,7 +21,7 @@
         <div
             class="{{ $selectedItem === 'addNewProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
         </div>
-        <div wire:click.prevent="addProduct"
+        <a wire:click.prevent="addProduct" href="{{ route('admin.add-product') }}" wire:navigate.hover
             class="{{ $selectedItem === 'addNewProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -32,13 +32,13 @@
 
             </div>
             <div>Add New Product</div>
-        </div>
+        </a>
     </div>
     <div class="flex">
         <div
             class="{{ $selectedItem === 'allProduct'? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
         </div>
-        <div wire:click.prevent="allProduct"
+        <a wire:click.prevent="allProduct" href="{{ route('admin.all-product') }}" wire:navigate.hover
             class="{{ $selectedItem === 'allProduct' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -51,6 +51,25 @@
 
             </div>
             <div>Products</div>
+        </a>
+    </div>
+    <div class="flex">
+        <div
+            class="{{ $selectedItem === 'admin.orders' ? 'bg-primary-500 rounded-r-md min-w-1' : 'bg-transparent rounded-r-md min-w-1' }}">
         </div>
+        <a href="{{ route('admin.orders') }}" wire:navigate.hover
+            class="{{ $selectedItem === 'admin.orders' ? 'px-4 py-4 text-primary-500 items-center rounded flex justify-center gap-4 hover:cursor-pointer' : 'px-4 py-4 text-slate-700 items-center rounded flex justify-center gap-4 hover:text-primary-500 cursor-pointer' }}">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+                </svg>
+
+
+
+            </div>
+            <div>Orders</div>
+        </a>
     </div>
 </div>

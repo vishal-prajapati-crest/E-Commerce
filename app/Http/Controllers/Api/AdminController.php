@@ -203,4 +203,98 @@ class AdminController extends Controller
         
         
     }
+
+    public function getOrders(Request $request){
+        try {
+            $seller = $request->user();
+           
+            $productWithOrderDetail = $seller->products()->select('id','title','category','image')
+                ->whereHas('orderItems', function ($query) {
+                    $query->where('quantity', '>', 0); // Assuming 'quantity' is the column indicating the number of items in an order
+                })
+                ->with(['orderItems' => function ($query) {
+                    $query->with(['order' => function ($query) {
+                        $query->select('id', 'user_id', 'payment_status', 'address', 'state', 'city', 'country');
+                    }])->with(['order.user' => function($query){
+                        $query->select('id', 'name', 'email');
+                    }]);
+                }])
+                ->withCount('orderItems')
+                ->get();
+
+            if($productWithOrderDetail){
+                return response()->json([
+                    'message' => 'Order fetched successfully',
+                    'data' => $productWithOrderDetail
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No order found'
+                ]);
+            }
+
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to Fetch Orders',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function editProduct(Request $request, int $id){
+        try{
+            $seller = $request->user();
+            $product = $seller->products()->where('id',$id)->first();
+
+            if (!$product){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found or you dont own this product',
+                    'error' => 'Product not found or you dont own this product'
+                ], 404);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'price' => 'required|numeric',
+                'description' => 'required|min:10',
+                'category' => 'required|string',
+                'image' => 'required|string'
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' =>false,
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors()
+                ], 422);
+            }
+
+            // If validation passes, continue with your logic
+             $data = $validator->validated();
+
+            $product = $seller->products()->where('id',$id)->update($data);
+
+            if($product){
+                return response()->json([
+                    'message' => "Updated successfully"
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Not updated',
+                    'error' => 'Unable to update somthing went wrong'
+                ],400);
+            }
+            
+        }catch(Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to Fetch Orders',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

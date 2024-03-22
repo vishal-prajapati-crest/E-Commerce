@@ -20,7 +20,8 @@ class AdminLogin extends Component
     
     public function login(){
         $this->validate();
-
+        session()->invalidate();
+        session()->regenerate();
         $response = Http::withHeaders([
             'Accept' => 'application/json'
         ])->post('http://localhost:8001/api/admin/login', ["email" => $this->email, "password" => $this->password]);
