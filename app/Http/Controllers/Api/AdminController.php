@@ -203,4 +203,43 @@ class AdminController extends Controller
         
         
     }
+
+    public function getOrders(Request $request){
+        try {
+            $seller = $request->user();
+           
+            $productWithOrderDetail = $seller->products()->select('id','title','category','image')
+                ->whereHas('orderItems', function ($query) {
+                    $query->where('quantity', '>', 0); // Assuming 'quantity' is the column indicating the number of items in an order
+                })
+                ->with(['orderItems' => function ($query) {
+                    $query->with(['order' => function ($query) {
+                        $query->select('id', 'user_id', 'payment_status', 'address', 'state', 'city', 'country');
+                    }])->with(['order.user' => function($query){
+                        $query->select('id', 'name', 'email');
+                    }]);
+                }])
+                ->withCount('orderItems')
+                ->get();
+
+            if($productWithOrderDetail){
+                return response()->json([
+                    'message' => 'Order fetched successfully',
+                    'data' => $productWithOrderDetail
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'No order found'
+                ]);
+            }
+
+            
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to Fetch Orders',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
