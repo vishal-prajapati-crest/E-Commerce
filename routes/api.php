@@ -47,6 +47,7 @@ Route::controller(AdminController::class)->prefix('admin')->name('api.admin.')->
         Route::get('/products', 'getAllProducts')->name('all-products');
         Route::delete('/product/{id}', 'deleteProduct')->name('delete-product');
         Route::get('/orders', 'getOrders')->name('orders');
+        Route::put('/product/edit/{id}', 'editProduct')->name('edit-product');
     });
 
 });

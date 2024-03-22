@@ -242,4 +242,59 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    public function editProduct(Request $request, int $id){
+        try{
+            $seller = $request->user();
+            $product = $seller->products()->where('id',$id)->first();
+
+            if (!$product){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found or you dont own this product',
+                    'error' => 'Product not found or you dont own this product'
+                ], 404);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'price' => 'required|numeric',
+                'description' => 'required|min:10',
+                'category' => 'required|string',
+                'image' => 'required|string'
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' =>false,
+                    'message' => 'Validation fails',
+                    'error' => $validator->errors()
+                ], 422);
+            }
+
+            // If validation passes, continue with your logic
+             $data = $validator->validated();
+
+            $product = $seller->products()->where('id',$id)->update($data);
+
+            if($product){
+                return response()->json([
+                    'message' => "Updated successfully"
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Not updated',
+                    'error' => 'Unable to update somthing went wrong'
+                ],400);
+            }
+            
+        }catch(Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to Fetch Orders',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
