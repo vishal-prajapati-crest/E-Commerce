@@ -9,6 +9,7 @@ use App\Livewire\Admin;
 use App\Livewire\AdminDashboard;
 use App\Livewire\AdminDashboard\AddNewProduct;
 use App\Livewire\AdminDashboard\AllProduct;
+use App\Livewire\AdminDashboard\Orders;
 use App\Livewire\AdminLogin;
 use App\Livewire\AdminRegister;
 use Illuminate\Support\Facades\Route;
@@ -55,4 +56,5 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     Route::get('/add-product', AddNewProduct::class)->name('add-product');
     Route::get('/all-product', AllProduct::class)->name('all-product');
+    Route::get('/orders', Orders::class)->name('orders');
 });

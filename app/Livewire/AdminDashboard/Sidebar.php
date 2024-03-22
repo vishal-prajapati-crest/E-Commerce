@@ -16,6 +16,8 @@ class Sidebar extends Component
             $this->selectedItem = 'allProduct';
         }elseif($currentRoute==='admin.add-product'){
             $this->selectedItem = 'addNewProduct';
+        }else{
+            $this->selectedItem = $currentRoute;
         }
     }
 
