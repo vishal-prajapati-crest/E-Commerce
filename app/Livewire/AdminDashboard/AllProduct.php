@@ -13,7 +13,8 @@ class AllProduct extends Component
 {
     public $products;
     public $loading = false;
-
+    public $showEditModal = false;
+    public $editProduct;
   
     public function mount(){
         $this->loading = true;
@@ -79,6 +80,38 @@ class AllProduct extends Component
         }else{
             session()->flash('error', $response['message']);
         }
+    }
+
+
+ 
+
+    public function openEditModal($product)
+    {
+        $this->editProduct = $product;
+        $this->showEditModal = true;
+    }
+
+    public function save(){
+        $data = [
+            'title' => $this->editProduct['title'],
+            'price' => $this->editProduct['price'],
+            'description' => $this->editProduct['description'],
+            'category' => $this->editProduct['category'],
+            'image' => $this->editProduct['image'],
+        ];
+    
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . session('token'),
+            'Accept' => 'application/json'
+        ])->put('http://localhost:8001/api/admin/product/edit/'. $this->editProduct['id'], $data);
+    
+        if($response->successful()){
+            $this->dispatch('product-Removed'); 
+            session()->flash('success','Updated successful');
+        }else{
+            session()->flash('error', $response['error']);
+        }
+        $this->showEditModal = false;
     }
 
     #[Layout('components.layouts.dashboard')]
